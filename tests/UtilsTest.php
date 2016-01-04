@@ -1,8 +1,8 @@
 <?php
 
-namespace SugarCli\Tests\Utils;
+namespace Inet\Inventory\Tests;
 
-use SugarCli\Utils\Utils;
+use Inet\Inventory\Utils;
 
 class UtilsTest extends \PHPUnit_Framework_TestCase
 {

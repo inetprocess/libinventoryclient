@@ -23,7 +23,7 @@ class MockClientTest extends ClientTestCase
     {
         $client = parent::getClient($mocks);
         $client->setDescription(
-            ServiceDescription::factory(__DIR__ . '/../../src/Inventory/InventoryService.json')
+            ServiceDescription::factory(__DIR__ . '/../src/InventoryService.json')
         );
         return $client;
     }

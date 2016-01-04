@@ -9,7 +9,7 @@ use Inet\SugarCRM\Database\SugarPDO;
 use Inet\Inventory\Facter\ArrayFacter;
 use Inet\Inventory\Facter\SugarFacter;
 use Inet\Inventory\Facter\SugarProvider\Version;
-use SugarCli\Tests\TestsUtil\MockPDO;
+use Inet\Inventory\Tests\MockPDO;
 
 class SugarFacterTest extends \PHPUnit_Framework_TestCase
 {
