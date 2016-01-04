@@ -1,5 +1,5 @@
 {
-    "name": "inetprocess/inventory",
+    "name": "inetprocess/libinventoryclient",
     "description": "This library provides various classes to get information about a SugarCRM Installation",
     "type": "library",
     "keywords": ["sugarcrm"],
@@ -12,14 +12,14 @@
     "repositories": [
         {
             "type": "git",
-            "url": "https://github.com/inetprocess/sugarcrm"
+            "url": "https://github.com/inetprocess/libsugarcrm"
         }
     ],
     "minimum-stability": "stable",
     "require": {
         "php": ">=5.3.3",
         "guzzle/guzzle": "~3.9",
-        "inetprocess/sugarcrm": "^1.1-dev",
+        "inetprocess/libsugarcrm": "^1.1-dev",
         "linfo/linfo": "^3.0",
         "psr/log": "~1",
         "ramsey/array_column": "^1.1",
