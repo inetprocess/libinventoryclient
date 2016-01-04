@@ -152,7 +152,7 @@ class SugarFacterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group sugar
+     * @group sugarcrm-path
      */
     public function testUserInfo()
     {
@@ -167,7 +167,7 @@ class SugarFacterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group sugar
+     * @group sugarcrm-path
      */
     public function testLicense()
     {
@@ -184,7 +184,7 @@ class SugarFacterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group sugar
+     * @group sugarcrm-path
      */
     public function testSugarFacter()
     {
