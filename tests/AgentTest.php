@@ -14,6 +14,9 @@ use Psr\Log\NullLogger;
 use Inet\Inventory\Agent;
 use Inet\Inventory\Facter\ArrayFacter;
 
+/**
+ * @group real-client
+ */
 class AgentTest extends ClientTestCase
 {
     protected $account_name = 'Test Corp.';

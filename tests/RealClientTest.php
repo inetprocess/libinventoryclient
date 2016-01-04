@@ -6,7 +6,7 @@ use Guzzle\Service\Client as GClient;
 use Guzzle\Service\Description\ServiceDescription;
 
 /**
- * @group inventory
+ * @group real-client
  */
 class RealClientTest extends MockClientTest
 {
