@@ -143,7 +143,7 @@ class SugarFacterTest extends \PHPUnit_Framework_TestCase
                 new MockPDO()
             )
         );
-        $stub->method('exec')
+        $stub->method('realExec')
             ->willReturn(null);
         $reflex = new \ReflectionClass($stub);
         $method = $reflex->getMethod('getDiskSpaceUsage');

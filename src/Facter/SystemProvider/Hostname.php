@@ -17,6 +17,7 @@
 
 namespace Inet\Inventory\Facter\SystemProvider;
 
+use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 use Inet\Inventory\Facter\FacterInterface;
 
@@ -24,9 +25,13 @@ class Hostname implements FacterInterface
 {
     public function getFacts()
     {
-        $process = new Process('hostname --fqdn');
-        $process->mustRun();
-        $fqdn = trim($process->getOutput());
+        $hostname = $fqdn = gethostname();
+        try {
+            $process = new Process('hostname --fqdn');
+            $process->mustRun();
+            $fqdn = trim($process->getOutput());
+        } catch (ProcessFailedException $e) {
+        }
 
         return array(
             'fqdn' => $fqdn,

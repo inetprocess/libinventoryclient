@@ -17,6 +17,7 @@
 
 namespace Inet\Inventory\Facter\SystemProvider;
 
+use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 use Inet\Inventory\Facter\FacterInterface;
 
@@ -36,7 +37,11 @@ class Lsb implements FacterInterface
     public function getFacts()
     {
         $process = new Process('lsb_release -cidr');
-        $process->mustRun();
+        try {
+            $process->mustRun();
+        } catch (ProcessFailedException $e) {
+            return array();
+        }
         $lsb = $this->parseOutput($process->getOutput());
         $version = explode('.', $lsb['Release'], 2);
         $major = $version[0];

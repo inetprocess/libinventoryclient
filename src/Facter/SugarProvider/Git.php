@@ -25,31 +25,28 @@ class Git extends AbstractSugarProvider
     public function isGit()
     {
         try {
-            $this->exec('git rev-parse --git-dir', $this->getPath());
+            $this->mustExec('git rev-parse --git-dir', $this->getPath());
         } catch (ProcessFailedException $e) {
             return false;
         }
-
         return true;
     }
 
     protected function execOrNull($cmd)
     {
         try {
-            return rtrim($this->exec($cmd, $this->getPath()));
+            return rtrim($this->mustExec($cmd, $this->getPath()));
         } catch (ProcessFailedException $e) {
         }
-
         return null;
     }
 
     public function getModifiedFiles()
     {
         try {
-            return substr_count($this->exec('git status --porcelain', $this->getPath()), "\n");
+            return substr_count($this->mustExec('git status --porcelain', $this->getPath()), "\n");
         } catch (ProcessFailedException $e) {
         }
-
         return null;
     }
 

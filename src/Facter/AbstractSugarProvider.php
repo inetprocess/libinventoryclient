@@ -63,11 +63,24 @@ abstract class AbstractSugarProvider implements FacterInterface
         return $value;
     }
 
-    public function exec($cmd, $cwd = null)
+    private function realExec($cmd, $throw_exception, $cwd)
     {
         $process = new Process($cmd, $cwd);
-        $process->mustRun();
-
+        if ($throw_exception) {
+            $process->mustRun();
+        } else {
+            $process->run();
+        }
         return $process->getOutput();
+    }
+
+    public function exec($cmd, $cwd = null)
+    {
+        return $this->realExec($cmd, false, $cwd);
+    }
+
+    public function mustExec($cmd, $cwd = null)
+    {
+        return $this->realExec($cmd, true, $cwd);
     }
 }
