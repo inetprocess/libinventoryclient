@@ -19,11 +19,10 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=7.0",
-        "guzzle/guzzle": "~3.9",
+        "guzzlehttp/guzzle": "~6.5.8",
         "inetprocess/libsugarcrm": "v2.0.2",
         "linfo/linfo": "^3.0",
         "psr/log": "2.0.0",
-        "ramsey/array_column": "^1.1",
         "symfony/finder": "~5",
         "symfony/process": "~5"
     },
