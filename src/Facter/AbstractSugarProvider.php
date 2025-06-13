@@ -2,7 +2,7 @@
 /**
  * Inventory
  *
- * PHP Version 5.3 -> 5.4
+ * PHP Version 8.2
  * SugarCRM Versions 6.5 - 7.6
  *
  * @author Rémi Sauvat
@@ -23,10 +23,10 @@ use Inet\SugarCRM\Application;
 
 abstract class AbstractSugarProvider implements FacterInterface
 {
-    protected $sugarApp;
-    protected $pdo;
+    protected Application $sugarApp;
+    protected PDO $pdo;
 
-    abstract public function getFacts();
+    abstract public function getFacts(): array;
 
     public function __construct(Application $sugarApp, PDO $pdo)
     {
@@ -34,22 +34,22 @@ abstract class AbstractSugarProvider implements FacterInterface
         $this->pdo = $pdo;
     }
 
-    public function getApplication()
+    public function getApplication(): Application
     {
         return $this->sugarApp;
     }
 
-    public function getPath()
+    public function getPath(): string
     {
         return $this->getApplication()->getPath();
     }
 
-    public function getPdo()
+    public function getPdo(): PDO
     {
         return $this->pdo;
     }
 
-    public function queryOne(\PDOStatement $stmt)
+    public function queryOne(\PDOStatement $stmt): mixed
     {
         $value = null;
         $stmt->execute();
@@ -59,13 +59,15 @@ abstract class AbstractSugarProvider implements FacterInterface
                 $value = $result[0][0];
             }
         }
-
         return $value;
     }
 
-    private function realExec($cmd, $throw_exception, $cwd)
+    private function realExec(string $cmd, bool $throw_exception, ?string $cwd): string
     {
-        $process = new Process($cmd, $cwd);
+        $process = Process::fromShellCommandline($cmd);
+        if ($cwd !== null) {
+            $process->setWorkingDirectory($cwd);
+        }
         if ($throw_exception) {
             $process->mustRun();
         } else {
@@ -74,12 +76,12 @@ abstract class AbstractSugarProvider implements FacterInterface
         return $process->getOutput();
     }
 
-    public function exec($cmd, $cwd = null)
+    public function exec(string $cmd, ?string $cwd = null): string
     {
         return $this->realExec($cmd, false, $cwd);
     }
 
-    public function mustExec($cmd, $cwd = null)
+    public function mustExec(string $cmd, ?string $cwd = null): string
     {
         return $this->realExec($cmd, true, $cwd);
     }

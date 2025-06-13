@@ -2,7 +2,7 @@
 /**
  * Inventory
  *
- * PHP Version 5.3 -> 5.4
+ * PHP Version 8.2
  * SugarCRM Versions 6.5 - 7.6
  *
  * @author Rémi Sauvat
@@ -22,11 +22,11 @@ use Inet\Inventory\Utils;
 
 class DiskSpace implements FacterInterface
 {
-    public function getFacts()
+    public function getFacts(): array
     {
         $disk_size = disk_total_space(getcwd());
         $disk_free = disk_free_space(getcwd());
-        $facts = array();
+        $facts = [];
         $facts['disksize_mb'] = round($disk_size / (1024*1024), 2);
         $facts['diskfree_mb'] = round($disk_free / (1024*1024), 2);
         $facts['disksize'] = Utils::humanize($disk_size);

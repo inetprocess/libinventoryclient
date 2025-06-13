@@ -2,7 +2,7 @@
 /**
  * Inventory
  *
- * PHP Version 5.3 -> 5.4
+ * PHP Version 8.2
  * SugarCRM Versions 6.5 - 7.6
  *
  * @author Rémi Sauvat
@@ -21,13 +21,13 @@ use Inet\Inventory\Facter\FacterInterface;
 
 class Timezone implements FacterInterface
 {
-    public function getFacts()
+    public function getFacts(): array
     {
         $d = new \DateTime();
         $tz = $d->getTimezone();
 
-        return array(
+        return [
             'timezone' => $tz->getName(),
-        );
+        ];
     }
 }

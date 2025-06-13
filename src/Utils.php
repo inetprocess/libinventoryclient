@@ -2,7 +2,7 @@
 /**
  * SugarCLI
  *
- * PHP Version 5.3 -> 5.4
+ * PHP Version 8.2
  * SugarCRM Versions 6.5 - 7.6
  *
  * @author Rémi Sauvat
@@ -26,19 +26,19 @@ class Utils
     /**
      * List of Prefixes
      *
-     * @var array
+     * @var array<string>
      */
-    public static $siPrefix = array( 'B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB' );
+    public static array $siPrefix = ['B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB'];
 
     /**
-     * Humanize the size bu add a Prefix
+     * Humanize the size by adding a Prefix
      *
-     * @param integer $bytes
-     * @param integer $base
+     * @param float $bytes
+     * @param int $base
      *
      * @return string Readable size
      */
-    public static function humanize($bytes, $base = 1024)
+    public static function humanize(float $bytes, int $base = 1024): string
     {
         if (empty($bytes)) {
             return '0 B';

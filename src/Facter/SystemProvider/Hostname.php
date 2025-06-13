@@ -2,7 +2,7 @@
 /**
  * Inventory
  *
- * PHP Version 5.3 -> 5.4
+ * PHP Version 8.2
  * SugarCRM Versions 6.5 - 7.6
  *
  * @author Rémi Sauvat
@@ -23,19 +23,20 @@ use Inet\Inventory\Facter\FacterInterface;
 
 class Hostname implements FacterInterface
 {
-    public function getFacts()
+    public function getFacts(): array
     {
         $hostname = $fqdn = gethostname();
         try {
-            $process = new Process('hostname --fqdn');
+            $process = Process::fromShellCommandline('hostname --fqdn');
             $process->mustRun();
             $fqdn = trim($process->getOutput());
         } catch (ProcessFailedException $e) {
+            // Keep default fqdn if command fails
         }
 
-        return array(
+        return [
             'fqdn' => $fqdn,
             'hostname' => gethostname()
-        );
+        ];
     }
 }

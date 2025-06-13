@@ -2,7 +2,7 @@
 /**
  * Inventory
  *
- * PHP Version 5.3 -> 5.4
+ * PHP Version 8.2
  * SugarCRM Versions 6.5 - 7.6
  *
  * @author Rémi Sauvat
@@ -21,10 +21,10 @@ use Symfony\Component\Process\Process;
 
 class CommandProvider implements FacterInterface
 {
-    protected $cmd;
-    protected $as_json;
+    protected string $cmd;
+    protected bool $as_json;
 
-    public function __construct($command, $as_json = false)
+    public function __construct(string $command, bool $as_json = false)
     {
         $this->cmd = $command;
         $this->as_json = $as_json;
@@ -34,37 +34,33 @@ class CommandProvider implements FacterInterface
      * Return the facts generated from the command.
      * If as_json is true, the command must produce valid json.
      */
-    public function getFacts()
+    public function getFacts(): array
     {
         try {
             $output = $this->runCommand($this->cmd);
             if ($this->as_json) {
                 $json = json_decode($output, true);
                 if (is_null($json)) {
-                    return array();
+                    return [];
                 }
-
                 return $json;
-            } else {
-                return $this->parseFacts($output);
             }
+            return $this->parseFacts($output);
         } catch (\Exception $e) {
-            return array();
+            return [];
         }
     }
 
     /**
      * Run the command.
      *
-     * @param $cmd Command line to run
-     *
-     * @return oupout of command
+     * @param string $cmd Command line to run
+     * @return string Output of command
      */
-    protected function runCommand($cmd)
+    protected function runCommand(string $cmd): string
     {
-        $process = new Process($cmd);
+        $process = Process::fromShellCommandline($cmd);
         $process->mustRun();
-
         return $process->getOutput();
     }
 
@@ -73,17 +69,16 @@ class CommandProvider implements FacterInterface
      * fact1=value1
      * fact2=value2
      */
-    protected function parseFacts($facts_string)
+    protected function parseFacts(string $facts_string): array
     {
-        $facts = array();
+        $facts = [];
         foreach (explode(PHP_EOL, $facts_string) as $line) {
             if (empty($line)) {
                 continue;
             }
-            list($key, $value) = explode('=', $line, 2);
+            [$key, $value] = explode('=', $line, 2);
             $facts[$key] = $value;
         }
-
         return $facts;
     }
 }

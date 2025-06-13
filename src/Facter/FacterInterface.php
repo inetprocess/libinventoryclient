@@ -2,7 +2,7 @@
 /**
  * Inventory
  *
- * PHP Version 5.3 -> 5.4
+ * PHP Version 8.2
  * SugarCRM Versions 6.5 - 7.6
  *
  * @author Rémi Sauvat
@@ -19,5 +19,5 @@ namespace Inet\Inventory\Facter;
 
 interface FacterInterface
 {
-    public function getFacts();
+    public function getFacts(): array;
 }
